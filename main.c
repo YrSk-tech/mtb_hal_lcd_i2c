@@ -39,9 +39,8 @@ int main(void)
 	cyhal_i2c_cfg_t mI2C_cfg;
     cybsp_init();
 
-    char *text = "EmbThere";
-    char int_to_str[10];
-    int count=0;
+    char *text = "Hello LCD I2C";
+    char *number = "101 second line";
 
 
     mI2C_cfg.is_slave = false;
@@ -59,20 +58,15 @@ int main(void)
 
 	lcd_init(&mI2C);
 
-
+	lcd_clear(&mI2C);
+	lcd_set_cursor(&mI2C, 0, 0);
+	lcd_write_string(&mI2C, text);
+	lcd_set_cursor(&mI2C, 1, 1);
+	lcd_write_string(&mI2C, number);
+	cyhal_system_delay_ms(1500);
     for (;;)
     {
-  	  sprintf(int_to_str, "%d", count);
-  	  lcd_clear(&mI2C);
-  	  lcd_set_cursor(&mI2C, 0, 0);
-  	  lcd_write_string(&mI2C, text);
-  	  lcd_set_cursor(&mI2C, 1, 0);
-  	  lcd_write_string(&mI2C, int_to_str);
-  	  count++;
-  	  memset(int_to_str, 0, sizeof(int_to_str));
-  	  cyhal_system_delay_ms(1500);
+
     }
 
 }
-
-
